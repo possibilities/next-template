@@ -1,0 +1,40 @@
+{
+  "name": "next-template",
+  "version": "0.0.0",
+  "license": "MIT",
+  "engines": {
+    "node": "12.x"
+  },
+  "scripts": {
+    "dev": "concurrently -n \"web,play\"  -c \"magenta,greenBright\" \"next dev\" \"OPEN_TAB=false playroom start\"",
+    "build": "next build",
+    "export": "next export -o export-out",
+    "export-and-serve": "yarn build && yarn export && serve export-out --no-clipboard",
+    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
+    "playroom": "playroom start",
+    "playroom:build": "playroom build"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.9.14",
+    "next": "^9.4.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-export-default-from": "^7.8.3",
+    "@types/node": "^14.0.1",
+    "@typescript-eslint/eslint-plugin": "^3.0.0",
+    "@typescript-eslint/parser": "^2.33.0",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "concurrently": "^5.2.0",
+    "eslint": "^7.1.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-react": "^7.20.0",
+    "playroom": "^0.18.1",
+    "prettier": "^2.0.5",
+    "serve": "^11.3.1",
+    "typescript": "^3.9.2"
+  }
+}

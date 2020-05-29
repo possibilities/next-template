@@ -1,0 +1,144 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: circleci/node:12
+    steps:
+      - checkout
+      - run:
+          command: yarn install
+          name: Install dependencies
+      - run:
+          command: yarn lint
+          name: Lint code
+      - run:
+          command: yarn tsc
+          name: Typecheck code
+      - run:
+          command: yarn build
+          name: Build app
+      - run:
+          command: yarn export
+          name: Export app
+      - run:
+          command: yarn playroom:build
+          name: Export playroom
+      - run:
+          command: yarn install
+          name: Install dependencies
+      - run:
+          command: |
+            mv ./playroom-out/index.html ./playroom-out/playroom.html
+            mkdir ./playroom-out/playroom
+            mv ./playroom-out/preview/index.html ./playroom-out/playroom/preview.html
+            cp --recursive --no-clobber ./playroom-out/* ./export-out/
+          name: Copy playroom assets to root
+      - run:
+          command: |
+            node -e 'console.info(JSON.stringify({
+              tag: process.env.CIRCLE_TAG,
+              commit: process.env.CIRCLE_SHA1
+            }, null, 2))' > ./export-out/version.json
+          name: Dump version.json
+      - persist_to_workspace:
+          root: /home/circleci/project
+          paths:
+            - export-out
+  upload:
+    docker:
+      - image: 'cimg/python:3.6'
+    steps:
+      - run:
+          command: |
+            [ -n "$AWS_ACCESS_KEY_ID" ] || { echo "AWS_ACCESS_KEY_ID env var is required"; exit 1; }
+            [ -n "$AWS_SECRET_ACCESS_KEY" ] || { echo "AWS_SECRET_ACCESS_KEYACCESS_KEY_ID env var is required"; exit 1; }
+            [ -n "$SUBDOMAIN" ] || { echo "SUBDOMAIN env var is required"; exit 1; }
+          name: Ensure environment is ready
+      - attach_workspace:
+          at: /home/circleci/project
+      - run:
+          command: pip install awscli --progress-bar off
+          name: Install AWS CLI
+      - run:
+          command: |
+            aws s3 sync \
+              ./export-out/_next \
+              s3://hackart.live/_builds/${SUBDOMAIN}/${CIRCLE_SHA1}/_next \
+              --cache-control immutable,max-age=100000000,public \
+              --acl public-read
+          name: Copy immutable assets to build bucket
+      - run:
+          command: |
+            aws s3 sync \
+              ./export-out \
+              s3://hackart.live/_builds/${SUBDOMAIN}/${CIRCLE_SHA1} \
+              --cache-control max-age=0,no-cache \
+              --exclude _next \
+              --acl public-read
+          name: Copy immutable assets to build bucket
+      - run:
+          command: |
+            cd export-out
+            find . -type f -name '*.html' | while read HTML_FILE_RELATIVE_PATH; do
+              HTML_FILE_RELATIVE_PATH_WITH_EXTENSION=${HTML_FILE_RELATIVE_PATH:2}
+              HTML_FILE_RELATIVE_PATH_WITHOUT_EXTENSION=${HTML_FILE_RELATIVE_PATH_WITH_EXTENSION::-5}
+              aws s3 cp \
+                s3://hackart.live/_builds/${SUBDOMAIN}/${CIRCLE_SHA1}/${HTML_FILE_RELATIVE_PATH_WITH_EXTENSION} \
+                s3://hackart.live/_builds/${SUBDOMAIN}/${CIRCLE_SHA1}/${HTML_FILE_RELATIVE_PATH_WITHOUT_EXTENSION}
+              if [ $? -ne 0 ]; then
+                echo "***** Failed uploading file without extension: ${HTML_FILE_RELATIVE_PATH_WITH_EXTENSION} -> ${HTML_FILE_RELATIVE_PATH_WITHOUT_EXTENSION}"
+                exit 1
+              fi
+            done
+          name: Duplicate all html files without extensions
+
+  deploy:
+    docker:
+      - image: 'cimg/python:3.6'
+    steps:
+      - run:
+          command: |
+            [ -n "$AWS_ACCESS_KEY_ID" ] || { echo "AWS_ACCESS_KEY_ID env var is required"; exit 1; }
+            [ -n "$AWS_SECRET_ACCESS_KEY" ] || { echo "AWS_SECRET_ACCESS_KEYACCESS_KEY_ID env var is required"; exit 1; }
+            [ -n "$SUBDOMAIN" ] || { echo "SUBDOMAIN env var is required"; exit 1; }
+          name: Ensure environment is ready
+      - attach_workspace:
+          at: /home/circleci/project
+      - run:
+          command: pip install awscli --progress-bar off
+          name: Install AWS CLI
+      - run:
+          command: |
+            aws s3 sync \
+            s3://hackart.live/_builds/${SUBDOMAIN}/${CIRCLE_SHA1}/_next \
+            s3://hackart.live/${SUBDOMAIN}/_next \
+            --acl public-read
+          name: Copy immutable assets to release bucket
+      - run:
+          command: |
+            aws s3 sync \
+            s3://hackart.live/_builds/${SUBDOMAIN}/${CIRCLE_SHA1} \
+            s3://hackart.live/${SUBDOMAIN} \
+            --exclude _next \
+            --acl public-read \
+            --delete
+          name: Copy mutable assets to release bucket
+
+workflows:
+  build:
+    jobs:
+      - build
+      - upload:
+          context: arthack.live-upload-credentials
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
+      - deploy:
+          context: arthack.live-upload-credentials
+          requires:
+            - upload
+          filters:
+            branches:
+              only: master
