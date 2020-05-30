@@ -1,5 +1,5 @@
 module.exports = {
-  components: './playroom/components.tsx',
+  components: '@material-ui/core',
   outputPath: './playroom-out',
   title: 'Next Template',
   widths: [320, 600, 960, 1280, 1920],
