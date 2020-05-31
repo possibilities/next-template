@@ -7415,7 +7415,7 @@ platform@1.3.3:
 
 "playroom@https://github.com/possibilities/playroom.git#static-types-config":
   version "0.0.0-semantically-released"
-  resolved "https://github.com/possibilities/playroom.git#bd2ac05a3d7adadfd2ade80eeb21041067eda991"
+  resolved "https://github.com/possibilities/playroom.git#cef5222eae261a3262b29834f5a64418933b5a85"
   dependencies:
     "@babel/cli" "^7.8.3"
     "@babel/core" "^7.8.3"
