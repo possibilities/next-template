@@ -6687,10 +6687,10 @@ ms@^2.1.1:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
 
-mui-primitives@^0.0.5:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/mui-primitives/-/mui-primitives-0.0.5.tgz#23a289f4dd720d5d1b0ba8ad94b5d0ffa1a218ed"
-  integrity sha512-KdBDhKKuLpsah/+3z6PMoJyLAGroAhvwccqg5t0FjyvM4uWyEzSzt1AfJOtk+eqFR9EA0dPNLsPY3PAOlTuEFw==
+mui-primitives@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/mui-primitives/-/mui-primitives-0.0.7.tgz#06e375e0910bbd8a94ade95133018c385eb16592"
+  integrity sha512-Y1CTg6GGAMVVMW49FMRHT/5++b7nOsK98sC3zcTwHtJWkal57uC22gwNVaImII65lw7I19OaRTN4PgjuOJbDPw==
   dependencies:
     react-keyed-flatten-children "^1.2.0"
 
@@ -7415,7 +7415,7 @@ platform@1.3.3:
 
 "playroom@https://github.com/possibilities/playroom.git#static-types-config":
   version "0.0.0-semantically-released"
-  resolved "https://github.com/possibilities/playroom.git#cef5222eae261a3262b29834f5a64418933b5a85"
+  resolved "https://github.com/possibilities/playroom.git#ab4b5ce6d62e28ac4c9773c2cd4c6e34e4aad45d"
   dependencies:
     "@babel/cli" "^7.8.3"
     "@babel/core" "^7.8.3"
