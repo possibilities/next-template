@@ -15,35 +15,32 @@ jobs:
           command: yarn tsc
           name: Typecheck code
       - run:
-          command: yarn build
+          command: yarn build-app
           name: Build app
       - run:
-          command: yarn export
+          command: yarn export-app
           name: Export app
       - run:
           command: yarn playroom:build
           name: Export playroom
       - run:
-          command: yarn install
-          name: Install dependencies
-      - run:
           command: |
             mv ./playroom-out/index.html ./playroom-out/playroom.html
             mkdir ./playroom-out/playroom
             mv ./playroom-out/preview/index.html ./playroom-out/playroom/preview.html
-            cp --recursive --no-clobber ./playroom-out/* ./export-out/
+            cp --recursive --no-clobber ./playroom-out/* ./app-out/
           name: Copy playroom assets to root
       - run:
           command: |
             node -e 'console.info(JSON.stringify({
               tag: process.env.CIRCLE_TAG,
               commit: process.env.CIRCLE_SHA1
-            }, null, 2))' > ./export-out/version.json
+            }, null, 2))' > ./app-out/version.json
           name: Dump version.json
       - persist_to_workspace:
           root: /home/circleci/project
           paths:
-            - export-out
+            - app-out
   upload:
     docker:
       - image: 'cimg/python:3.6'
@@ -62,7 +59,7 @@ jobs:
       - run:
           command: |
             aws s3 sync \
-              ./export-out/_next \
+              ./app-out/_next \
               s3://hackart.live/_builds/${SUBDOMAIN}/${CIRCLE_SHA1}/_next \
               --cache-control immutable,max-age=100000000,public \
               --acl public-read
@@ -70,7 +67,7 @@ jobs:
       - run:
           command: |
             aws s3 sync \
-              ./export-out \
+              ./app-out \
               s3://hackart.live/_builds/${SUBDOMAIN}/${CIRCLE_SHA1} \
               --cache-control max-age=0,no-cache \
               --exclude _next \
@@ -78,7 +75,7 @@ jobs:
           name: Copy immutable assets to build bucket
       - run:
           command: |
-            cd export-out
+            cd app-out
             find . -type f -name '*.html' | while read HTML_FILE_RELATIVE_PATH; do
               HTML_FILE_RELATIVE_PATH_WITH_EXTENSION=${HTML_FILE_RELATIVE_PATH:2}
               HTML_FILE_RELATIVE_PATH_WITHOUT_EXTENSION=${HTML_FILE_RELATIVE_PATH_WITH_EXTENSION::-5}

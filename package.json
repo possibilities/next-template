@@ -7,9 +7,9 @@
   },
   "scripts": {
     "dev": "concurrently -n \"web,play\"  -c \"magenta,greenBright\" \"next dev\" \"OPEN_TAB=false playroom start\"",
-    "build": "next build",
-    "export": "next export -o export-out",
-    "export-and-serve": "yarn build && yarn export && serve export-out --no-clipboard",
+    "build-app": "next build",
+    "export-app": "next export -o app-out",
+    "export-app-and-serve": "yarn build-app && yarn export-app && serve app-out --no-clipboard",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
     "playroom": "playroom start",
     "playroom:build": "playroom build"
