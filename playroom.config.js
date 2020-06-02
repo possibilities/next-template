@@ -15,13 +15,7 @@ module.exports = {
           test: /\.(ts|tsx)$/,
           loader: require.resolve('babel-loader'),
           options: {
-            plugins: [
-              require.resolve('@babel/plugin-proposal-export-default-from'),
-            ],
-            presets: [
-              require.resolve('@babel/preset-env'),
-              require.resolve('next/babel'),
-            ],
+            presets: [require.resolve('next/babel')],
           },
         },
       ],
