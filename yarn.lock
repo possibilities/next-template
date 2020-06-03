@@ -6748,12 +6748,13 @@ ms@^2.1.1:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
 
-mui-primitives@^0.0.7:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/mui-primitives/-/mui-primitives-0.0.7.tgz#06e375e0910bbd8a94ade95133018c385eb16592"
-  integrity sha512-Y1CTg6GGAMVVMW49FMRHT/5++b7nOsK98sC3zcTwHtJWkal57uC22gwNVaImII65lw7I19OaRTN4PgjuOJbDPw==
+mui-primitives@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/mui-primitives/-/mui-primitives-0.0.9.tgz#90074de961726ffdaae5c7df37fc255825ed2600"
+  integrity sha512-YSINRaREO8rVAbO5prCzoZSKEyOjqzrsdIqBj+oAqqDjzaJ7fGd1I3vcv6Oz7NlWDrkkDeDkcVPiNVDwVn7mjw==
   dependencies:
     react-keyed-flatten-children "^1.2.0"
+    styled-components "^5.1.1"
 
 multicast-dns-service-types@^1.1.0:
   version "1.1.0"

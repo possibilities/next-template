@@ -17,7 +17,7 @@
   "dependencies": {
     "@material-ui/core": "^4.9.14",
     "@types/styled-components": "^5.1.0",
-    "mui-primitives": "^0.0.7",
+    "mui-primitives": "^0.0.9",
     "next": "^9.4.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
