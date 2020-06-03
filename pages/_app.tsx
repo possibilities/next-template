@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import Head from 'next/head'
-import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
+import { ThemeProvider as MaterialUiThemeProvider } from '@material-ui/core/styles'
+import { ThemeProvider as StyledComponentsThemeProvider } from 'styled-components'
 import theme from '../theme'
 import { AppProps } from 'next/app'
 
@@ -25,10 +26,12 @@ const App = (props: AppProps) => {
         />
         <title>Next Template</title>
       </Head>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <MaterialUiThemeProvider theme={theme}>
+        <StyledComponentsThemeProvider theme={theme}>
+          <CssBaseline />
+          <Component {...pageProps} />
+        </StyledComponentsThemeProvider>
+      </MaterialUiThemeProvider>
     </>
   )
 }
