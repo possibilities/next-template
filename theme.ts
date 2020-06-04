@@ -10,6 +10,10 @@ const theme = createMuiTheme({
         fontSize: '1.2rem',
         fontWeight: 'bold',
       },
+      h2: {
+        fontSize: '1.0rem',
+        fontWeight: 'bold',
+      },
     },
   },
 })

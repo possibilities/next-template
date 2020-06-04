@@ -19,7 +19,7 @@ const Page = () => (
         </Column>
       </Columns>
       <Typography variant='h2' gutterBottom>
-        home
+        about
       </Typography>
       <Columns alignY='center'>
         <Column width='column'>

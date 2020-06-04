@@ -6748,10 +6748,10 @@ ms@^2.1.1:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
 
-mui-primitives@^0.0.9:
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/mui-primitives/-/mui-primitives-0.0.9.tgz#90074de961726ffdaae5c7df37fc255825ed2600"
-  integrity sha512-YSINRaREO8rVAbO5prCzoZSKEyOjqzrsdIqBj+oAqqDjzaJ7fGd1I3vcv6Oz7NlWDrkkDeDkcVPiNVDwVn7mjw==
+mui-primitives@0.0.10-0:
+  version "0.0.10-0"
+  resolved "https://registry.yarnpkg.com/mui-primitives/-/mui-primitives-0.0.10-0.tgz#af4406e8d186e27e3564fd4d3ff74a9857033510"
+  integrity sha512-BV9weka+MrjrVKblSId829sJ1HFZQI6x78Eun48T51LXfgZiZsPFmttAnZfc2EqLPdjm04pTIpsx1DWpu9YRag==
   dependencies:
     react-keyed-flatten-children "^1.2.0"
     styled-components "^5.1.1"
