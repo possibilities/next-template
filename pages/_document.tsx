@@ -2,7 +2,7 @@ import React from 'react'
 import NextDocument, { Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheet as StyledComponentSheets } from 'styled-components'
 import { ServerStyleSheets as MaterialUiServerStyleSheets } from '@material-ui/core/styles'
-import theme from '../theme'
+import theme from '../modules/theme'
 
 class Document extends NextDocument {
   render() {

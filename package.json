@@ -10,7 +10,7 @@
     "build-app": "next build",
     "export-app": "next export -o app-out",
     "export-app-and-serve": "yarn build-app && yarn export-app && serve app-out --no-clipboard",
-    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
+    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet",
     "playroom": "playroom start",
     "playroom:build": "playroom build"
   },
