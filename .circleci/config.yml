@@ -21,16 +21,6 @@ jobs:
           command: yarn export-app
           name: Export app
       - run:
-          command: yarn playroom:build
-          name: Export playroom
-      - run:
-          command: |
-            mv ./playroom-out/index.html ./playroom-out/playroom.html
-            mkdir ./playroom-out/playroom
-            mv ./playroom-out/preview/index.html ./playroom-out/playroom/preview.html
-            cp --recursive --no-clobber ./playroom-out/* ./app-out/
-          name: Copy playroom assets to root
-      - run:
           command: |
             node -e 'console.info(JSON.stringify({
               tag: process.env.CIRCLE_TAG,

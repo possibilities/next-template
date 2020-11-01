@@ -6,36 +6,29 @@
     "node": "12.x"
   },
   "scripts": {
-    "dev": "concurrently -n \"web,play\"  -c \"magenta,greenBright\" \"next dev\" \"OPEN_TAB=false playroom start\"",
+    "dev": "next dev",
     "build-app": "next build",
     "export-app": "next export -o app-out",
     "export-app-and-serve": "yarn build-app && yarn export-app && serve app-out --no-clipboard",
-    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet",
-    "playroom": "playroom start",
-    "playroom:build": "playroom build"
+    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet"
   },
   "dependencies": {
-    "@material-ui/core": "^4.9.14",
-    "@types/styled-components": "^5.1.0",
-    "mui-primitives": "^0.0.12",
-    "next": "^9.4.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "styled-components": "^5.1.1"
+    "@material-ui/core": "^4.11.0",
+    "next": "^10.0.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   },
   "devDependencies": {
-    "@types/node": "^14.0.1",
-    "@typescript-eslint/eslint-plugin": "^3.0.0",
-    "@typescript-eslint/parser": "^2.33.0",
+    "@types/node": "^14.14.6",
+    "@typescript-eslint/eslint-plugin": "^4.6.0",
+    "@typescript-eslint/parser": "^4.6.0",
     "babel-loader": "^8.1.0",
-    "concurrently": "^5.2.0",
-    "eslint": "^7.1.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-prettier": "^3.1.3",
-    "eslint-plugin-react": "^7.20.0",
-    "playroom": "https://github.com/possibilities/playroom.git#static-types-config",
-    "prettier": "^2.0.5",
-    "serve": "^11.3.1",
-    "typescript": "^3.9.2"
+    "eslint": "^7.12.1",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.21.5",
+    "prettier": "^2.1.2",
+    "serve": "^11.3.2",
+    "typescript": "^4.0.5"
   }
 }

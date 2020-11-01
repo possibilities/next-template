@@ -1,41 +1,10 @@
-import React, { useEffect, ReactNode } from 'react'
+import React, { useEffect } from 'react'
 import Head from 'next/head'
 import CssBaseline from '@material-ui/core/CssBaseline'
+import Box from '@material-ui/core/Box'
 import { ThemeProvider as MaterialUiThemeProvider } from '@material-ui/core/styles'
-import { ThemeProvider as StyledComponentsThemeProvider } from 'styled-components'
 import theme from '../modules/theme'
 import { AppProps } from 'next/app'
-import { Stack, Box, Columns, Column } from 'mui-primitives'
-import Link from '../components/Link'
-import NakedLink from 'next/link'
-
-const logoWidthAndHeight = 40
-
-const Layout = ({ children }: { children: ReactNode }) => (
-  <Box padding={2}>
-    <Stack space={2}>
-      <NakedLink href='/'>
-        <a style={{ lineHeight: 0 }}>
-          <img
-            src='/logo.png'
-            width={logoWidthAndHeight}
-            height={logoWidthAndHeight}
-          />
-        </a>
-      </NakedLink>
-      <Columns space={1}>
-        <Column width='content'>
-          <Link href='/'>home</Link>
-        </Column>
-        <Column width='content'>|</Column>
-        <Column>
-          <Link href='/about'>about</Link>
-        </Column>
-      </Columns>
-      {children}
-    </Stack>
-  </Box>
-)
 
 const App = (props: AppProps) => {
   const { Component, pageProps } = props
@@ -58,12 +27,10 @@ const App = (props: AppProps) => {
         <title>Next Template</title>
       </Head>
       <MaterialUiThemeProvider theme={theme}>
-        <StyledComponentsThemeProvider theme={theme}>
-          <CssBaseline />
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </StyledComponentsThemeProvider>
+        <CssBaseline />
+        <Box padding={2}>
+          <Component {...pageProps} />
+        </Box>
       </MaterialUiThemeProvider>
     </>
   )
