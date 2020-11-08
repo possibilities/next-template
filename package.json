@@ -10,7 +10,11 @@
     "build-app": "next build",
     "export-app": "next export -o app-out",
     "export-app-and-serve": "yarn build-app && yarn export-app && serve app-out --no-clipboard",
-    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet"
+    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet",
+    "types": "tsc",
+    "types:watch": "nodemon --exec 'yarn types' --ext 'ts,tsx,js,md,json,yml' --ignore typescript-out",
+    "lint": "eslint '**/*.ts' '**/*.tsx'",
+    "lint:watch": "nodemon --exec 'yarn lint' --ext 'ts,tsx,js,md,json,yml' --ignore typescript-out"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",

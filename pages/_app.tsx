@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, ReactNode } from 'react'
 import Head from 'next/head'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Box from '@material-ui/core/Box'
@@ -6,7 +6,7 @@ import { ThemeProvider as MaterialUiThemeProvider } from '@material-ui/core/styl
 import theme from '../modules/theme'
 import { AppProps } from 'next/app'
 
-const App = (props: AppProps) => {
+const App = (props: AppProps): ReactNode => {
   const { Component, pageProps } = props
 
   useEffect(() => {
