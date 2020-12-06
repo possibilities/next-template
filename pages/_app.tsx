@@ -24,7 +24,7 @@ const App = (props: AppProps): ReactNode => {
           name='viewport'
           content='minimum-scale=1, initial-scale=1, width=device-width'
         />
-        <title>Next Template</title>
+        <title>Quote App UI Client</title>
       </Head>
       <MaterialUiThemeProvider theme={theme}>
         <CssBaseline />
