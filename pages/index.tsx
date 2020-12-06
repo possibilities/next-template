@@ -17,27 +17,6 @@ const apiOptions = {
   transactionId: uuid(),
 }
 
-const examples = [
-  {
-    name: 'Create quote | General information',
-    url: '/quote',
-    method: 'POST' as const,
-    data: {
-      action: 'HOME_GEN_QUOTE_INFO',
-      quote: {
-        isoProgram: '91',
-        effectiveDt: '2020-12-05',
-        contractNumber: '20300',
-        niprId: '0005411111',
-        controllingStateProvCd: 'ME',
-        policyTypeCd: 'HO0001',
-        naicCd: '26018',
-        isBookTransfer: false,
-      },
-    },
-  },
-]
-
 const newStaticQuoteProperties = {
   lobCd: 'HOME',
   policyTerm: 1,
@@ -79,61 +58,180 @@ const cleanOutput = (obj: unknown) =>
   })
 
 const Page = (): ReactNode => {
-  const [responses, setResponses] = useState<unknown[]>([])
+  const [uiRequests, setUiRequests] = useState<unknown[]>([])
+  const [uiResponses, setUiResponses] = useState<unknown[]>([])
+  const [apiRequests, setApiRequests] = useState<unknown[]>([])
+  const [apiResponses, setApiResponses] = useState<unknown[]>([])
   return (
     <>
-      {examples.map((example, position) => (
-        <>
-          <Box paddingBottom={2}>
-            <Typography variant='h1'>{example.name}</Typography>
-          </Box>
-          <Box paddingBottom={2}>
-            <Typography variant='h2'>
-              {example.method} {example.url} ({example.data.action})
-            </Typography>
-          </Box>
-          <Box display='flex'>
+      <Box paddingBottom={4}>
+        <Box paddingBottom={2}>
+          <Typography variant='h1'>
+            Create quote | General information
+          </Typography>
+        </Box>
+        <Box display='flex'>
+          {uiRequests[0] && (
             <Box paddingBottom={2}>
-              <pre>{JSON.stringify(example.data.quote, null, 2)}</pre>
+              <pre>{JSON.stringify(cleanOutput(uiRequests[0]), null, 2)}</pre>
             </Box>
-            {responses[position] && (
-              <Box paddingBottom={2}>
-                <pre>
-                  {JSON.stringify(cleanOutput(responses[position]), null, 2)}
-                </pre>
-              </Box>
-            )}
-          </Box>
-          <Button
-            variant='outlined'
-            onClick={async () => {
-              const { data } = await request({
-                method: example.method,
-                baseURL: apiUrl,
-                url: example.url,
-                headers: {
-                  userId: apiOptions.userId,
-                  transactionId: apiOptions.transactionId,
-                  Authorization: `bearer ${apiOptions.userId}`,
-                  'Content-Type': 'application/json',
-                },
-                data: {
-                  action: example.data.action,
-                  userId: apiOptions.transactionId,
-                  transactionId: apiOptions.transactionId,
-                  quote:
-                    example.method === 'POST'
-                      ? prepareNewQuote(example.data.quote, apiOptions.userId)
-                      : example.data.quote,
-                },
-              })
-              setResponses(responses => [...responses, data])
-            }}
-          >
-            Run example
-          </Button>
-        </>
-      ))}
+          )}
+          {apiRequests[0] && (
+            <Box paddingBottom={2}>
+              <pre>{JSON.stringify(cleanOutput(apiRequests[0]), null, 2)}</pre>
+            </Box>
+          )}
+          {uiResponses[0] && (
+            <Box paddingBottom={2}>
+              <pre>{JSON.stringify(cleanOutput(uiResponses[0]), null, 2)}</pre>
+            </Box>
+          )}
+          {apiResponses[0] && (
+            <Box paddingBottom={2}>
+              <pre>{JSON.stringify(cleanOutput(apiResponses[0]), null, 2)}</pre>
+            </Box>
+          )}
+        </Box>
+        <Button
+          variant='outlined'
+          onClick={async () => {
+            const newQuote = {
+              isoProgram: '91',
+              effectiveDt: '2020-12-05',
+              contractNumber: '20300',
+              niprId: '0005411111',
+              controllingStateProvCd: 'ME',
+              policyTypeCd: 'HO0001',
+              naicCd: '26018',
+              isBookTransfer: false,
+            }
+            const apiQuote = prepareNewQuote(newQuote, apiOptions.userId)
+            setUiRequests(uiRequests => {
+              const cloned = [...uiRequests]
+              cloned[0] = apiQuote
+              return cloned
+            })
+            setApiRequests(apiRequests => {
+              const cloned = [...apiRequests]
+              cloned[0] = apiQuote
+              return cloned
+            })
+            const { data } = await request({
+              url: '/quote',
+              method: 'POST',
+              baseURL: apiUrl,
+              headers: {
+                userId: apiOptions.userId,
+                transactionId: apiOptions.transactionId,
+                Authorization: `bearer ${apiOptions.userId}`,
+                'Content-Type': 'application/json',
+              },
+              data: {
+                quote: apiQuote,
+                action: 'HOME_GEN_QUOTE_INFO',
+                userId: apiOptions.transactionId,
+                transactionId: apiOptions.transactionId,
+              },
+            })
+            setUiResponses(uiResponses => {
+              const cloned = [...uiResponses]
+              cloned[0] = data
+              return cloned
+            })
+            setApiResponses(apiResponses => {
+              const cloned = [...apiResponses]
+              cloned[0] = data
+              return cloned
+            })
+          }}
+        >
+          Run example
+        </Button>
+      </Box>
+      <Box paddingBottom={4}>
+        <Box paddingBottom={2}>
+          <Typography variant='h1'>
+            Update quote | General information
+          </Typography>
+        </Box>
+        <Box display='flex'>
+          {uiRequests[1] && (
+            <Box paddingBottom={2}>
+              <pre>{JSON.stringify(cleanOutput(uiRequests[1]), null, 2)}</pre>
+            </Box>
+          )}
+          {apiRequests[1] && (
+            <Box paddingBottom={2}>
+              <pre>{JSON.stringify(cleanOutput(apiRequests[1]), null, 2)}</pre>
+            </Box>
+          )}
+          {uiResponses[1] && (
+            <Box paddingBottom={2}>
+              <pre>{JSON.stringify(cleanOutput(uiResponses[1]), null, 2)}</pre>
+            </Box>
+          )}
+          {apiResponses[1] && (
+            <Box paddingBottom={2}>
+              <pre>{JSON.stringify(cleanOutput(apiResponses[1]), null, 2)}</pre>
+            </Box>
+          )}
+        </Box>
+        <Button
+          variant='outlined'
+          onClick={async () => {
+            const newQuote = {
+              isoProgram: '91',
+              effectiveDt: '2020-12-05',
+              contractNumber: '20300',
+              niprId: '0005411111',
+              controllingStateProvCd: 'ME',
+              policyTypeCd: 'HO0001',
+              naicCd: '26018',
+              isBookTransfer: false,
+            }
+            const uiQuote = prepareNewQuote(newQuote, apiOptions.userId)
+            setUiRequests(uiRequests => {
+              const cloned = [...uiRequests]
+              cloned[1] = uiQuote
+              return cloned
+            })
+            setApiRequests(apiRequests => {
+              const cloned = [...apiRequests]
+              cloned[1] = uiQuote
+              return cloned
+            })
+            const { data } = await request({
+              url: '/quote',
+              method: 'POST',
+              baseURL: apiUrl,
+              headers: {
+                userId: apiOptions.userId,
+                transactionId: apiOptions.transactionId,
+                Authorization: `bearer ${apiOptions.userId}`,
+                'Content-Type': 'application/json',
+              },
+              data: {
+                quote: uiQuote,
+                action: 'HOME_GEN_QUOTE_INFO',
+                userId: apiOptions.transactionId,
+                transactionId: apiOptions.transactionId,
+              },
+            })
+            setUiResponses(uiResponses => {
+              const cloned = [...uiResponses]
+              cloned[1] = data
+              return cloned
+            })
+            setApiResponses(apiResponses => {
+              const cloned = [...apiResponses]
+              cloned[1] = data
+              return cloned
+            })
+          }}
+        >
+          Run example
+        </Button>
+      </Box>
     </>
   )
 }

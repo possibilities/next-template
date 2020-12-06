@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "axios": "^0.21.0",
+    "lodash": "^4.17.20",
+    "traverse": "^0.6.6",
+    "uuid": "^8.3.1"
+  },
+  "devDependencies": {
+    "prettier": "^2.2.1"
+  }
+}
