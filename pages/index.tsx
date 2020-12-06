@@ -79,10 +79,10 @@ const cleanOutput = (obj: unknown) =>
   })
 
 const Page = (): ReactNode => {
-  const [response, setResponse] = useState()
+  const [responses, setResponses] = useState<unknown[]>([])
   return (
     <>
-      {examples.map(example => (
+      {examples.map((example, position) => (
         <>
           <Box paddingBottom={2}>
             <Typography variant='h1'>{example.name}</Typography>
@@ -96,9 +96,11 @@ const Page = (): ReactNode => {
             <Box paddingBottom={2}>
               <pre>{JSON.stringify(example.data.quote, null, 2)}</pre>
             </Box>
-            {response && (
+            {responses[position] && (
               <Box paddingBottom={2}>
-                <pre>{JSON.stringify(cleanOutput(response), null, 2)}</pre>
+                <pre>
+                  {JSON.stringify(cleanOutput(responses[position]), null, 2)}
+                </pre>
               </Box>
             )}
           </Box>
@@ -125,7 +127,7 @@ const Page = (): ReactNode => {
                       : example.data.quote,
                 },
               })
-              setResponse(data)
+              setResponses(responses => [...responses, data])
             }}
           >
             Run example
