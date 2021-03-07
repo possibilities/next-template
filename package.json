@@ -7,7 +7,9 @@
   },
   "scripts": {
     "dev": "next dev",
+    "start": "next start",
     "build-app": "next build",
+    "build-app-and-start": "next build && next start",
     "export-app": "next export -o app-out",
     "export-app-and-serve": "yarn build-app && yarn export-app && serve app-out --no-clipboard",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet",
